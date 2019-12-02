@@ -1,4 +1,7 @@
-<p>User with ID {{user.id}} loaded.</p>
-<p>User name is {{user.name}}</p>
+<div *ngIf="user">
+    <p>User with ID {{user.id}} loaded.</p>
+    <p>User name is {{user.name}}</p>
+</div>
+
 <hr>
-<a [routerLink]="['/users', 3, 'Anna']">Load Anna</a>   <!-- changes url to '/users/3/Anna-->
+<!-- <a [routerLink]="['/users', 3, 'Anna']">Load Anna</a>   changes url to '/users/3/Anna -->

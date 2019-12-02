@@ -17,4 +17,8 @@ export class HomeComponent implements OnInit {
     // move to servers tab
     this.router.navigate(['/servers']);
   }
+  onLoadServer(id: number) {
+    // move to servers tab
+    this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: 1 }, fragment: 'lalamido'});
+  }
 }

@@ -16,9 +16,13 @@ import { ServersService } from './servers/servers.service';
 
 const appRoutes = [
   { path: '', component: HomeComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'users/:id/:name', component: UserComponent }, // 'id' custom specified name, that can be retrieved inside component; ':' marks that this is dynamic part of path
-  { path: 'servers', component: ServersComponent }
+  { path: 'users', component: UsersComponent, children: [
+    { path: ':id/:name', component: UserComponent }, // 'id' custom specified name, that can be retrieved inside component; ':' marks that this is dynamic part of path
+  ] },
+  { path: 'servers', component: ServersComponent, children: [
+    { path: ':id', component: ServerComponent },
+    { path: ':id/edit', component: EditServerComponent }
+  ] }
 ]
 
 @NgModule({
