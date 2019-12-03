@@ -8,6 +8,7 @@ import { ServersComponent } from "./servers/servers.component";
 import { ServerComponent } from "./servers/server/server.component";
 import { EditServerComponent } from "./servers/edit-server/edit-server.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
+import { AuthGuard } from "./auth-guard.service";
 
 
 const appRoutes = [
@@ -15,10 +16,15 @@ const appRoutes = [
     { path: 'users', component: UsersComponent, children: [
       { path: ':id/:name', component: UserComponent }, // 'id' custom specified name, that can be retrieved inside component; ':' marks that this is dynamic part of path
     ] },
-    { path: 'servers', component: ServersComponent, children: [
-      { path: ':id', component: ServerComponent },
-      { path: ':id/edit', component: EditServerComponent }
-    ] },
+    { path: 'servers', 
+      // canActivate: [AuthGuard], // AuthGuard works for servers path and all its children
+      canActivateChild: [AuthGuard],  // AuthGuard works for servers children paths only
+      component: ServersComponent, 
+      children: [
+        { path: ':id', component: ServerComponent },
+        { path: ':id/edit', component: EditServerComponent }
+      ] 
+    },
     { path: 'not-found', component: PageNotFoundComponent },
     { path: '**', redirectTo: '/not-found' }  // wild card must be at the end of paths list, otherwise will always load
 ]
